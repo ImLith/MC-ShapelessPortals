@@ -27,12 +27,8 @@ public class CreateNetherPortal implements Listener {
             return;
 
         Bukkit.getScheduler().runTask(Plugin.plugin, () -> {
-            if (!createPortal(block))
-                createPortal(block);
+            if (!NetherPortalUtil.createNetherPortal(block, Axis.X))
+                NetherPortalUtil.createNetherPortal(block, Axis.Z);
         });
-    }
-
-    private boolean createPortal(Block block) {
-        return NetherPortalUtil.createNetherPortal(block, Axis.X, 441);
     }
 }

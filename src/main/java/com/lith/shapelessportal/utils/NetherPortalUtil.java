@@ -11,15 +11,17 @@ import org.bukkit.block.data.BlockData;
 import java.util.Arrays;
 import org.bukkit.block.data.Orientable;
 
+import com.lith.shapelessportal.config.ConfigManager;
+
 public class NetherPortalUtil {
-    public static boolean createNetherPortal(Block block, Axis axis, int maxSize) {
+    public static boolean createNetherPortal(Block block, Axis axis) {
         final List<BlockFace> searchDirections;
         final List<BlockFace> alternateDirections;
 
         if (axis == Axis.X) {
             searchDirections = Arrays.asList(BlockFace.UP, BlockFace.DOWN, BlockFace.WEST, BlockFace.EAST);
             alternateDirections = Arrays.asList(BlockFace.NORTH, BlockFace.SOUTH);
-        } else if (axis == Axis.Y) {
+        } else if (axis == Axis.Z) {
             searchDirections = Arrays.asList(BlockFace.UP, BlockFace.DOWN, BlockFace.NORTH, BlockFace.SOUTH);
             alternateDirections = Arrays.asList(BlockFace.EAST, BlockFace.WEST);
         } else
@@ -32,7 +34,7 @@ public class NetherPortalUtil {
         searched.add(block);
 
         for (BlockFace face : searchDirections)
-            if (!checkPortalCreationBlock(block.getRelative(face), blocks, searched, searchDirections, maxSize))
+            if (!checkPortalCreationBlock(block.getRelative(face), blocks, searched, searchDirections))
                 return false;
 
         for (Block portal : blocks)
@@ -55,10 +57,9 @@ public class NetherPortalUtil {
         return material == Material.OBSIDIAN || material == Material.CRYING_OBSIDIAN;
     }
 
-    private static boolean checkPortalCreationBlock(
-            final Block block, Set<Block> blocks, Set<Block> searched,
-            List<BlockFace> searchDirections, int maxSize) {
-        if (blocks.size() > maxSize)
+    private static boolean checkPortalCreationBlock(final Block block, Set<Block> blocks,
+            Set<Block> searched, List<BlockFace> searchDirections) {
+        if (blocks.size() > ConfigManager.portalConfig.maxPortalSize)
             return false;
 
         if (searched.contains(block))
@@ -72,7 +73,7 @@ public class NetherPortalUtil {
             for (BlockFace face : searchDirections)
                 if (!checkPortalCreationBlock(
                         block.getRelative(face), blocks,
-                        searched, searchDirections, maxSize))
+                        searched, searchDirections))
                     return false;
 
             return true;
