@@ -51,12 +51,6 @@ public class NetherPortalUtil {
         return true;
     }
 
-    public static boolean checkPortalBlockType(Block block) {
-        Material material = block.getType();
-
-        return material == Material.OBSIDIAN || material == Material.CRYING_OBSIDIAN;
-    }
-
     private static boolean checkPortalCreationBlock(final Block block, Set<Block> blocks,
             Set<Block> searched, List<BlockFace> searchDirections) {
         if (blocks.size() > ConfigManager.portalConfig.maxPortalSize)
@@ -78,6 +72,6 @@ public class NetherPortalUtil {
 
             return true;
         } else
-            return checkPortalBlockType(block);
+            return ConfigManager.portalConfig.portalBlocks.contains(block.getType());
     }
 }

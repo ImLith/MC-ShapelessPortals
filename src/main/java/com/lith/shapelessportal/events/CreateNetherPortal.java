@@ -10,6 +10,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import com.lith.shapelessportal.Plugin;
+import com.lith.shapelessportal.config.ConfigManager;
 import com.lith.shapelessportal.utils.NetherPortalUtil;
 
 public class CreateNetherPortal implements Listener {
@@ -23,7 +24,7 @@ public class CreateNetherPortal implements Listener {
         if (player == null)
             return;
 
-        if (!NetherPortalUtil.checkPortalBlockType(event.getBlockAgainst()))
+        if (!ConfigManager.portalConfig.portalBlocks.contains(event.getBlockAgainst().getType()))
             return;
 
         Bukkit.getScheduler().runTask(Plugin.plugin, () -> {

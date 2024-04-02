@@ -1,2 +1,11 @@
 # Max portal size in Blocks!
+# The highter the number the more blocks it will search and require more resources.
+# Unrecommended to go lower than 300
 max_portal_size: 450
+
+# List of blocks that are allowed as portal frame
+# NOTE removing 'minecraft:obsidian' does NOT prevent creation of vanilla style portals
+# unless creating a portal is disabled in server configs
+allowed_materials:
+  - minecraft:obsidian
+  - minecraft:crying_obsidian
