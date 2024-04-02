@@ -1,15 +1,16 @@
 package com.lith.shapelessportal;
 
 import com.lith.lithcore.abstractClasses.MainPlugin;
-import com.lith.lithcore.abstractClasses.PluginConfigManager;
+import com.lith.shapelessportal.config.ConfigManager;
 import com.lith.shapelessportal.events.CreateNetherPortal;
 
-public class Plugin extends MainPlugin<PluginConfigManager> {
+public class Plugin extends MainPlugin<ConfigManager> {
     public static Plugin plugin;
 
     public void onEnable() {
         Plugin.plugin = this;
 
+        registerConfigs();
         registerEvents();
 
         Static.log.info("Plugin enabled");
@@ -17,6 +18,10 @@ public class Plugin extends MainPlugin<PluginConfigManager> {
 
     public void onDisable() {
         Static.log.info("Plugin disabled");
+    }
+
+    private void registerConfigs() {
+        new ConfigManager(this);
     }
 
     private void registerEvents() {
