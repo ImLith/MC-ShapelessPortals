@@ -10,3 +10,14 @@ website: https://github.com/ImLith/MC-ShapelessPortals
 
 depend: [LithCore]
 softdepend: []
+
+commands:
+  spReload:
+    description: Reload configs
+    usage: /<command>
+    permission: shaplessportals.reload
+
+permissions:
+  shaplessportals.reload:
+    description: Reload configs
+    default: op
