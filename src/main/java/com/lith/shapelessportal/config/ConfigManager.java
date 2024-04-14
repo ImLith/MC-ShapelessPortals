@@ -9,7 +9,7 @@ import com.lith.shapelessportal.Plugin;
 import com.lith.shapelessportal.Static.ConfigKey;
 
 public class ConfigManager extends AbstractConfigManager<Plugin, ConfigManager> {
-    public static PortalConfig portalConfig;
+    public PortalConfig portalConfig;
 
     public ConfigManager(final Plugin plugin) {
         super(plugin);
