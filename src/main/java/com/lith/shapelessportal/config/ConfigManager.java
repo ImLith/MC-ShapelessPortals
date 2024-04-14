@@ -4,22 +4,25 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.bukkit.Material;
-import com.lith.lithcore.abstractClasses.MainPlugin;
-import com.lith.lithcore.abstractClasses.PluginConfigManager;
-import com.lith.shapelessportal.Static;
+import com.lith.lithcore.abstractClasses.AbstractConfigManager;
+import com.lith.shapelessportal.Plugin;
 import com.lith.shapelessportal.Static.ConfigKey;
 
-public class ConfigManager extends PluginConfigManager {
+public class ConfigManager extends AbstractConfigManager<Plugin, ConfigManager> {
     public static PortalConfig portalConfig;
 
-    public ConfigManager(final MainPlugin<ConfigManager> plugin) {
+    public ConfigManager(final Plugin plugin) {
         super(plugin);
+    }
 
+    @Override
+    public void load() {
+        super.load();
         portalConfig = new PortalConfig();
     }
 
     public final class PortalConfig {
-        public final int maxPortalSize = getInt(ConfigKey.MAX_PORTAL_SIZE);
+        public final int maxPortalSize = config.getInt(ConfigKey.MAX_PORTAL_SIZE);
         public final Set<Material> portalBlocks;
 
         public PortalConfig() {
@@ -44,7 +47,7 @@ public class ConfigManager extends PluginConfigManager {
                 Material material = Material.matchMaterial(materialName);
 
                 if (material == null) {
-                    Static.log.warning("Material " + materialName + " is not a valid material! Skip");
+                    plugin.log.warning("Material " + materialName + " is not a valid material! Skip");
                     continue;
                 }
 
@@ -60,7 +63,7 @@ public class ConfigManager extends PluginConfigManager {
             portalBlocks.add(Material.OBSIDIAN);
             portalBlocks.add(Material.CRYING_OBSIDIAN);
 
-            Static.log.warning("No valid material list found in the configs! Using default.");
+            plugin.log.warning("No valid material list found in the configs! Using default.");
         }
     }
 }

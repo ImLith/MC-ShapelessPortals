@@ -10,7 +10,6 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.BlockData;
 import java.util.Arrays;
 import org.bukkit.block.data.Orientable;
-
 import com.lith.shapelessportal.config.ConfigManager;
 
 public class NetherPortalUtil {
